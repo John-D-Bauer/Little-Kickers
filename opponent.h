@@ -9,10 +9,10 @@ int oppScore {0};
 #define OPP_HEIGHT  16
 #define OPP_X_OFFSET   WIDTH - OPP_WIDTH
 #define OPP_Y_OFFSET   64 - OPP_HEIGHT
-#define OPP_SPEED 0.5
+#define OPP_SPEED  1
 
 Rect oppRect = {
-  OPP_X_OFFSET, OPP_Y_OFFSET, OPP_WIDTH, OPP_HEIGHT
+  opp.x, opp.y, OPP_WIDTH, OPP_HEIGHT
 };
 
 enum OppStance {
@@ -75,27 +75,30 @@ void oppAttack() {
   
   /* Every 7 frames we actually move the opponent in direction
      in which he is facing. */
-  if (!opp.hasBall && arduboy.everyXFrames(7)) {
+   if (!opp.hasBall && arduboy.everyXFrames(7)) {
     switch (opp.stance)
     {
       case OppStance::oppRunningR:
-        opp.x += OPP_SPEED;
+        if(ballx < opp.x)
+          opp.x += OPP_SPEED;
         break;
 
       case OppStance::oppRunningL:
-        opp.x -= OPP_SPEED;
+        if(ballx > opp.x)
+          opp.x -= OPP_SPEED;
         break;
 
       case OppStance::oppRunningF:
-        opp.y += OPP_SPEED;
+        if(bally < opp.y)
+          opp.y += OPP_SPEED;
         break;
 
       case OppStance::oppRunningB:
-        opp.y -= OPP_SPEED;
+        if(bally > opp.y)
+          opp.y -= OPP_SPEED;
         break;
     }
   }
-
  
 } 
 
@@ -108,4 +111,3 @@ if (arduboy.collide(oppRect, ballRect)) {
     oppScore += 1;
   }
 }
-
