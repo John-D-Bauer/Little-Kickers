@@ -22,7 +22,7 @@ Rect ballRect = {
 };
 
 Rect playerRect = {
-  PLAYER_X_OFFSET, PLAYER_Y_OFFSET, PLAYER_WIDTH, PLAYER_HEIGHT
+  player.x, player.y, PLAYER_WIDTH, PLAYER_HEIGHT
 };
 
 
@@ -223,25 +223,7 @@ if (arduboy.justPressed(B_BUTTON) && (arduboy.pressed(DOWN_BUTTON))) {
 }
 }
 
-void scoreGoal() {
-
-  arduboy.setCursor(120, 0);
-  arduboy.print(playerScore);
-  
-  if (arduboy.justPressed(A_BUTTON) && (player.hasBall)) {
-    for (int ballPixels = 0; ballPixels <= 30; ++ballPixels) {
-      ballx += 1;
-    }
-    player.hasBall = false;
-  }
-
-  if (arduboy.pressed(RIGHT_BUTTON) || arduboy.pressed(LEFT_BUTTON) || arduboy.pressed(UP_BUTTON) || arduboy.pressed(DOWN_BUTTON) || arduboy.justPressed(A_BUTTON) || arduboy.justPressed(B_BUTTON)) {
-    ballx += 0;
-    bally += 0;
-    ballx -= 0;
-    bally -= 0;
-  }
-  
+void scoreGoal() { 
   if (ballx + BALL_SIZE >= mapx + TILE_SIZE * WORLD_WIDTH) {
     playerScore += 1; 
     ballx = PLAYER_X_OFFSET + PLAYER_WIDTH - 2;
@@ -258,5 +240,4 @@ void resetGame() {
   mapx = 0;
   mapy = 0;
 }
-
 
