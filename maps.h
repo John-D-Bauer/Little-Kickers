@@ -1,5 +1,5 @@
 // I think I'm done here...
-#pragma once;
+#pragma once
 #include "images.h"
 
 int mapx = 0;
