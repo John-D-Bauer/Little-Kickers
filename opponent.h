@@ -11,10 +11,6 @@ int oppScore {0};
 #define OPP_Y_OFFSET   64 - OPP_HEIGHT
 #define OPP_SPEED  1
 
-Rect oppRect = {
-  opp.x, opp.y, OPP_WIDTH, OPP_HEIGHT
-};
-
 enum OppStance {
   oppStanding,
   oppRunningR,
@@ -37,6 +33,11 @@ struct Opponent {
 };
 
 Opponent opp = {OPP_X_OFFSET, OPP_Y_OFFSET, OppStance::oppStanding, 0, false, opponentImages};
+
+
+Rect oppRect = {
+  opp.x, opp.y, OPP_WIDTH, OPP_HEIGHT
+};
 
 
 void drawopponent() {
@@ -75,7 +76,7 @@ void oppAttack() {
   
   /* Every 7 frames we actually move the opponent in direction
      in which he is facing. */
-   if (!opp.hasBall && arduboy.everyXFrames(7)) {
+  if (!opp.hasBall && arduboy.everyXFrames(7)) {
     switch (opp.stance)
     {
       case OppStance::oppRunningR:
@@ -99,7 +100,7 @@ void oppAttack() {
         break;
     }
   }
- 
+  
 } 
 
 void oppGoal() {
