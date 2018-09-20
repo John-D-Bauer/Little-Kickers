@@ -17,16 +17,6 @@ int bally{PLAYER_Y_OFFSET + PLAYER_HEIGHT / 2};
 
 int playerScore {0};
 
-Rect ballRect = {
-  ballx, bally, BALL_SIZE, BALL_SIZE
-};
-
-Rect playerRect = {
-  player.x, player.y, PLAYER_WIDTH, PLAYER_HEIGHT
-};
-
-
-
 enum Stance {
   Standing,
   RunningR1,
@@ -48,6 +38,15 @@ struct Player {
 };
 
 Player player = {PLAYER_X_OFFSET, PLAYER_Y_OFFSET, Stance::Standing, true, playerImages};
+
+
+Rect ballRect = {
+  ballx, bally, BALL_SIZE, BALL_SIZE
+};
+
+Rect playerRect = {
+  player.x, player.y, PLAYER_WIDTH, PLAYER_HEIGHT
+};
 
 
 void drawball() {
@@ -240,4 +239,3 @@ void resetGame() {
   mapx = 0;
   mapy = 0;
 }
-
