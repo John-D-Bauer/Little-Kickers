@@ -17,16 +17,6 @@ int bally{PLAYER_Y_OFFSET + PLAYER_HEIGHT / 2};
 
 int playerScore {0};
 
-Rect ballRect = {
-  ballx, bally, BALL_SIZE, BALL_SIZE
-};
-
-Rect playerRect = {
-  player.x, player.y, PLAYER_WIDTH, PLAYER_HEIGHT
-};
-
-
-
 enum Stance {
   Standing,
   RunningR1,
@@ -48,6 +38,15 @@ struct Player {
 };
 
 Player player = {PLAYER_X_OFFSET, PLAYER_Y_OFFSET, Stance::Standing, true, playerImages};
+
+
+Rect ballRect = {
+  ballx, bally, BALL_SIZE, BALL_SIZE
+};
+
+Rect playerRect = {
+  player.x, player.y, PLAYER_WIDTH, PLAYER_HEIGHT
+};
 
 
 void drawball() {
@@ -214,16 +213,28 @@ void playerinput() {
     player.stance = Stance::Standing; 
     }
   }
-
+/*
+ENGAGES SLIDE-TACKLING PROTOTYPE THAT IS NOT READY FOR RELEASE YET!!
 if (arduboy.justPressed(B_BUTTON) && (arduboy.pressed(DOWN_BUTTON))) {
   player.stance = Stance::Standing;
 
   player.y += 5;
   
 }
+*/
 }
 
 void scoreGoal() { 
+  
+  if (arduboy.justPressed(A_BUTTON)) {
+    if (ballx == player.x + PLAYER_WIDTH + 30) {
+      ballx += 0;
+    }
+    else {
+      ballx += 1;
+    }
+  }
+  
   if (ballx + BALL_SIZE >= mapx + TILE_SIZE * WORLD_WIDTH) {
     playerScore += 1; 
     ballx = PLAYER_X_OFFSET + PLAYER_WIDTH - 2;
@@ -240,4 +251,5 @@ void resetGame() {
   mapx = 0;
   mapy = 0;
 }
+
 
