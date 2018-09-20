@@ -52,7 +52,7 @@ void oppAttack() {
      will make the game more difficult (the oponent will
      have faster reaction time). */
 
-  if (arduboy.everyXFrames(50)) {
+  if (arduboy.everyXFrames(30)) {
     if(ballx > opp.x) {
       opp.stance = OppStance::oppRunningR;
     }
@@ -75,31 +75,26 @@ void oppAttack() {
   
   /* Every 7 frames we actually move the opponent in direction
      in which he is facing. */
-   if (!opp.hasBall && arduboy.everyXFrames(7)) {
+  if (!opp.hasBall && arduboy.everyXFrames(7)) {
     switch (opp.stance)
     {
       case OppStance::oppRunningR:
-        if(ballx < opp.x)
-          opp.x += OPP_SPEED;
+        opp.x += OPP_SPEED;
         break;
 
       case OppStance::oppRunningL:
-        if(ballx > opp.x)
-          opp.x -= OPP_SPEED;
+        opp.x -= OPP_SPEED;
         break;
 
       case OppStance::oppRunningF:
-        if(bally < opp.y)
-          opp.y += OPP_SPEED;
+        opp.y += OPP_SPEED;
         break;
 
       case OppStance::oppRunningB:
-        if(bally > opp.y)
-          opp.y -= OPP_SPEED;
+        opp.y -= OPP_SPEED;
         break;
     }
   }
- 
 } 
 
 void oppGoal() {
