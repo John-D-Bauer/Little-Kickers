@@ -1,43 +1,8 @@
 #pragma once
 #include "images.h"
+#include "globals.h"
 
 Sprites sprites;
-
-int oppScore {0};
-
-#define OPP_WIDTH    10
-#define OPP_HEIGHT  16
-#define OPP_X_OFFSET   WIDTH - OPP_WIDTH
-#define OPP_Y_OFFSET   64 - OPP_HEIGHT
-#define OPP_SPEED  1
-
-Rect oppRect = {
-  opp.x, opp.y, OPP_WIDTH, OPP_HEIGHT
-};
-
-enum OppStance {
-  oppStanding,
-  oppRunningR,
-  oppRunningL,
-  oppRunningF,
-  oppRunningB,
-};
-
-struct oppVector {
-  int x, y;
-};
-
-struct Opponent {
-  int x;
-  int y;
-  OppStance stance;
-  int animationFrame;
-  bool hasBall;
-  char image;
-};
-
-Opponent opp = {OPP_X_OFFSET, OPP_Y_OFFSET, OppStance::oppStanding, 0, false, opponentImages};
-
 
 void drawopponent() {
 int frame = opp.stance == OppStance::oppStanding ? 0 : (opp.stance * 2 - 1 + opp.animationFrame);
@@ -106,3 +71,4 @@ if (arduboy.collide(oppRect, ballRect)) {
     oppScore += 1;
   }
 }
+

@@ -5,6 +5,7 @@ Arduboy2 arduboy;
 #include "maps.h"
 #include "player.h"
 #include "opponent.h"
+#include "globals.h"
 
 #define GAME_INTRO  0
 #define GAME_TITLE  1
