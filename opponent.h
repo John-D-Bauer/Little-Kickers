@@ -1,44 +1,8 @@
 #pragma once
 #include "images.h"
+#include "globals.h"
 
 Sprites sprites;
-
-int oppScore {0};
-
-#define OPP_WIDTH    10
-#define OPP_HEIGHT  16
-#define OPP_X_OFFSET   WIDTH - OPP_WIDTH
-#define OPP_Y_OFFSET   64 - OPP_HEIGHT
-#define OPP_SPEED  1
-
-enum OppStance {
-  oppStanding,
-  oppRunningR,
-  oppRunningL,
-  oppRunningF,
-  oppRunningB,
-};
-
-struct oppVector {
-  int x, y;
-};
-
-struct Opponent {
-  int x;
-  int y;
-  OppStance stance;
-  int animationFrame;
-  bool hasBall;
-  char image;
-};
-
-Opponent opp = {OPP_X_OFFSET, OPP_Y_OFFSET, OppStance::oppStanding, 0, false, opponentImages};
-
-
-Rect oppRect = {
-  opp.x, opp.y, OPP_WIDTH, OPP_HEIGHT
-};
-
 
 void drawopponent() {
 int frame = opp.stance == OppStance::oppStanding ? 0 : (opp.stance * 2 - 1 + opp.animationFrame);
@@ -53,17 +17,17 @@ void oppAttack() {
      will make the game more difficult (the oponent will
      have faster reaction time). */
 
-  if (arduboy.everyXFrames(1)) {
-    if(ballx >= opp.x) {
+  if (arduboy.everyXFrames(30)) {
+    if(ballx > opp.x) {
       opp.stance = OppStance::oppRunningR;
     }
-    else if(ballx <= opp.x) {
+    else if(ballx < opp.x) {
       opp.stance = OppStance::oppRunningL;
     }
-    else if (bally >= opp.y) {
+    else if (bally > opp.y) {
       opp.stance = OppStance::oppRunningF;
     }
-    else if(bally <= opp.y) {
+    else if(bally < opp.y) {
       opp.stance = OppStance::oppRunningB;
     }
   }
@@ -76,7 +40,7 @@ void oppAttack() {
   
   /* Every 7 frames we actually move the opponent in direction
      in which he is facing. */
- if (!opp.hasBall && arduboy.everyXFrames(7)) {
+  if (!opp.hasBall && arduboy.everyXFrames(7)) {
     switch (opp.stance)
     {
       case OppStance::oppRunningR:
@@ -97,7 +61,6 @@ void oppAttack() {
     }
   }
 } 
-
 
 void oppGoal() {
 if (arduboy.collide(oppRect, ballRect)) {
