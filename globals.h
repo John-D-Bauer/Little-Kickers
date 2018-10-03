@@ -32,11 +32,6 @@ struct Opponent {
 
 Opponent opp = {OPP_X_OFFSET, OPP_Y_OFFSET, OppStance::oppStanding, 0, false, opponentImages};
 
-
-Rect oppRect = {
-  opp.x, opp.y, OPP_WIDTH, OPP_HEIGHT
-};
-
 #define PLAYER_WIDTH    10
 #define PLAYER_HEIGHT  16
 #define PLAYER_X_OFFSET   WIDTH / 2 - PLAYER_WIDTH / 2
@@ -70,14 +65,5 @@ struct Player {
 };
 
 Player player = {PLAYER_X_OFFSET, PLAYER_Y_OFFSET, Stance::Standing, true, playerImages};
-
-
-Rect ballRect = {
-  ballx, bally, BALL_SIZE, BALL_SIZE
-};
-
-Rect playerRect = {
-  player.x, player.y, PLAYER_WIDTH, PLAYER_HEIGHT
-};
 
 #endif
