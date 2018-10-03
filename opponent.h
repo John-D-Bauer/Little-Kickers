@@ -18,57 +18,78 @@ void oppAttack() {
      have faster reaction time). */
 
   if (arduboy.everyXFrames(30)) {
-    if(ballx > opp.x) {
-      opp.stance = OppStance::oppRunningR;
-    }
-    else if(ballx < opp.x) {
-      opp.stance = OppStance::oppRunningL;
-    }
-    else if (bally > opp.y) {
-      opp.stance = OppStance::oppRunningF;
-    }
-    else if(bally < opp.y) {
-      opp.stance = OppStance::oppRunningB;
-    }
+    if(opp.x < ballx)
+{
+	opp.stance = OppStance::oppRunningR;
+}
+else if(opp.x > (ballx + BALL_SIZE))
+{
+	opp.stance = OppStance::oppRunningL;
+}
+       if(opp.y < bally)
+{
+	opp.stance = OppStance::oppRunningF;
+}
+else if(opp.y > (bally + BALL_SIZE))
+{
+	opp.stance = OppStance::oppRunningB;
+}
   }
 
   /* Every 5 frames we change the animation frame - this
      will only affect the animation, so choose a value that
      just looks nice. */
-  if (arduboy.everyXFrames(5))
+  if (arduboy.everyXFrames(5)) {
     opp.animationFrame = (opp.animationFrame + 1) % 2;
-  
+  }
   /* Every 7 frames we actually move the opponent in direction
      in which he is facing. */
   if (!opp.hasBall && arduboy.everyXFrames(7)) {
     switch (opp.stance)
     {
-      case OppStance::oppRunningR:
-        opp.x += OPP_SPEED;
-        break;
+     case OppStance::oppRunningR:
+	if(opp.x < ballx)
+	{
+		opp.x += OPP_SPEED;
+	}
+	break;
 
-      case OppStance::oppRunningL:
-        opp.x -= OPP_SPEED;
-        break;
+case OppStance::oppRunningL:
+	if(opp.x > (ballx + BALL_SIZE))
+	{
+		opp.x -= OPP_SPEED;
+	}
+	break;
 
       case OppStance::oppRunningF:
-        opp.y += OPP_SPEED;
+        if(opp.y < bally)
+	{
+		opp.y += OPP_SPEED;
+	}
         break;
 
       case OppStance::oppRunningB:
-        opp.y -= OPP_SPEED;
+        if(opp.y > (bally + BALL_SIZE))
+	{
+		opp.y -= OPP_SPEED;
+	}
         break;
     }
   }
 } 
 
-void oppGoal() {
-if (arduboy.collide(oppRect, ballRect)) {
-  opp.hasBall = true;
-}
-  
-  if(opp.hasBall == true) {
-    oppScore += 1;
-  }
-}
+void oppGoal()
+{
+	Rect ballRect = { ballx, bally, BALL_SIZE, BALL_SIZE };
+	Rect oppRect = { opp.x, opp.y, OPP_WIDTH, OPP_HEIGHT };
 
+	if (arduboy.collide(oppRect, ballRect))
+	{
+		opp.hasBall = true;
+	}
+
+	if(opp.hasBall == true)
+	{
+		oppScore += 5;
+	}
+}
