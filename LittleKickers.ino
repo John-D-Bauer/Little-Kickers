@@ -1,4 +1,3 @@
-
 #include <Arduboy2.h>
 Arduboy2 arduboy;
 
@@ -15,8 +14,11 @@ Arduboy2 arduboy;
 int gamestate = GAME_TITLE;
 
 void titlescreen() {
-  arduboy.setCursor(0, 0);
-  arduboy.print("Title Screen\n");
+  arduboy.drawBitmap(0, 0, titleScreen, 128, 64, WHITE);
+  arduboy.setCursor(50, 28);
+  arduboy.print("Press\n");
+   arduboy.setCursor(50, 38);
+  arduboy.print(" A\n");
   if(arduboy.justPressed(A_BUTTON)) {
     gamestate = GAME_PLAY;
   }
@@ -56,8 +58,10 @@ void gameover() {
 }
 
 void highscore() {
-  arduboy.setCursor(0, 0);
-  arduboy.print("High Score Screen\n");
+   arduboy.drawBitmap(0, 0, winscreen, 64, 64, WHITE);
+  
+  arduboy.setCursor(68, 28);
+  arduboy.print("You won!\n      Press A to \n      Start again");
 
   if (gamestate == GAME_HIGH) {
     resetGame();
@@ -112,4 +116,3 @@ void loop() {
 
   arduboy.display();
 }
-
