@@ -184,6 +184,15 @@ if (arduboy.justPressed(B_BUTTON) && (arduboy.pressed(DOWN_BUTTON))) {
 }
 
 void scoreGoal() { 
+  if (arduboy.justPressed(A_BUTTON)) {
+    if (ballx == player.x + PLAYER_WIDTH + 30) {
+      ballx += 0;
+    }
+    else {
+      ballx += 1;
+    }
+  }
+  
   if (ballx + BALL_SIZE >= mapx + TILE_SIZE * WORLD_WIDTH) {
     playerScore += 1; 
     ballx = PLAYER_X_OFFSET + PLAYER_WIDTH - 2;
