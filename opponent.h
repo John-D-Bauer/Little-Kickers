@@ -80,16 +80,32 @@ case OppStance::oppRunningL:
 
 void oppGoal()
 {
-	Rect ballRect = { ballx, bally, BALL_SIZE, BALL_SIZE };
+	Rect ballRect = { ballx, bally, BALL_SIZE + 1, BALL_SIZE + 1 };
 	Rect oppRect = { opp.x, opp.y, OPP_WIDTH, OPP_HEIGHT };
 
 	if (arduboy.collide(oppRect, ballRect))
 	{
 		opp.hasBall = true;
 	}
+	
+	if (opp.hasBall) {
+	  if (opp.x != mapx) {
+	    if (arduboy.everyXFrames(7)) {
+	    opp.x -= 1;
+	    ballx -= 1;
+	    }
+	  }
+	}
 
-	if(opp.hasBall == true)
+	if(ballx == mapx)
 	{
-		oppScore += 5;
+		oppScore += 1;
+	  ballx = PLAYER_X_OFFSET + PLAYER_WIDTH - 2;
+    bally = PLAYER_Y_OFFSET + PLAYER_HEIGHT / 2;
+    mapx = 0;
+    mapy = 0;
+    opp.hasBall = false;
+    opp.x = WIDTH - OPP_WIDTH;
+    opp.y = HEIGHT / 2 - OPP_HEIGHT / 2;
 	}
 }
