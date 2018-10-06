@@ -90,8 +90,72 @@ void oppGoal()
 	
 	if (opp.hasBall) {
 	  if (opp.x != mapx) {
-	    if (arduboy.everyXFrames(7)) {
-	    opp.x -= 1;
+	    /* Every 30 frames change the stance - this affects how
+     quickly the opponent "reacts" to the player movement.
+     Experiment with different values than 30. Lower values
+     will make the game more difficult (the oponent will
+     have faster reaction time). */
+
+  if (arduboy.everyXFrames(30)) {
+    if(opp.x < mapx)
+{
+	opp.stance = OppStance::oppRunningR;
+}
+else if(opp.x > (mapx + TILE_SIZE * WORLD_WIDTH))
+{
+	opp.stance = OppStance::oppRunningL;
+}
+       if(opp.y < mapy)
+{
+	opp.stance = OppStance::oppRunningF;
+}
+else if(opp.y > (mapy + TILE_SIZE * WORLD_HEIGHT))
+{
+	opp.stance = OppStance::oppRunningB;
+}
+  }
+
+  /* Every 5 frames we change the animation frame - this
+     will only affect the animation, so choose a value that
+     just looks nice. */
+  if (arduboy.everyXFrames(5)) {
+    opp.animationFrame = (opp.animationFrame + 1) % 2;
+  }
+  /* Every 7 frames we actually move the opponent in direction
+     in which he is facing. */
+  if (!opp.hasBall && arduboy.everyXFrames(7)) {
+    switch (opp.stance)
+    {
+     case OppStance::oppRunningR:
+	if(opp.x < mapx)
+	{
+		opp.x += OPP_SPEED;
+	}
+	break;
+
+case OppStance::oppRunningL:
+	if(opp.x > (mapx + TILE_SIZE * WORLD_WIDTH))
+	{
+		opp.x -= OPP_SPEED;
+	}
+	break;
+
+      case OppStance::oppRunningF:
+        if(opp.y < mapy)
+	{
+		opp.y += OPP_SPEED;
+	}
+        break;
+
+      case OppStance::oppRunningB:
+        if(opp.y > (mapy + TILE_SIZE * WORLD_HEIGHT))
+	{
+		opp.y -= OPP_SPEED;
+	}
+        break;
+    }
+  }
+  if (arduboy.everyXFrames(7)) {
 	    ballx -= 1;
 	    }
 	  }
