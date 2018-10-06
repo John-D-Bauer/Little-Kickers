@@ -4,49 +4,7 @@
 
 #pragma once
 #include "images.h"
-
-#define PLAYER_WIDTH    10
-#define PLAYER_HEIGHT  16
-#define PLAYER_X_OFFSET   WIDTH / 2 - PLAYER_WIDTH / 2
-#define PLAYER_Y_OFFSET    HEIGHT / 2 - PLAYER_HEIGHT / 2
-#define BALL_RADIUS    4
-#define BALL_SIZE    8
-
-int ballx{PLAYER_X_OFFSET + PLAYER_WIDTH - 2};
-int bally{PLAYER_Y_OFFSET + PLAYER_HEIGHT / 2};
-
-int playerScore {0};
-
-enum Stance {
-  Standing,
-  RunningR1,
-  RunningR2,
-  RunningL1,
-  RunningL2,
-  RunningF1,
-  RunningF2,
-  RunningB1,
-  RunningB2,
-};
-
-struct Player {
-  int x;
-  int y;
-  Stance stance;
-  bool hasBall;
-  char image;
-};
-
-Player player = {PLAYER_X_OFFSET, PLAYER_Y_OFFSET, Stance::Standing, true, playerImages};
-
-
-Rect ballRect = {
-  ballx, bally, BALL_SIZE, BALL_SIZE
-};
-
-Rect playerRect = {
-  player.x, player.y, PLAYER_WIDTH, PLAYER_HEIGHT
-};
+#include "globals.h"
 
 
 void drawball() {
@@ -55,6 +13,9 @@ void drawball() {
 }
 
 void contact () {
+Rect ballRect = { ballx, bally, BALL_SIZE, BALL_SIZE};
+Rect playerRect = {player.x, player.y, PLAYER_WIDTH, PLAYER_HEIGHT};
+  
   if (arduboy.collide(ballRect, playerRect))  {
     player.hasBall = true;
   }
@@ -213,19 +174,16 @@ void playerinput() {
     player.stance = Stance::Standing; 
     }
   }
-/*
-ENGAGES SLIDE-TACKLING PROTOTYPE THAT IS NOT READY FOR RELEASE YET!!
+
 if (arduboy.justPressed(B_BUTTON) && (arduboy.pressed(DOWN_BUTTON))) {
   player.stance = Stance::Standing;
 
   player.y += 5;
   
 }
-*/
 }
 
 void scoreGoal() { 
-  
   if (arduboy.justPressed(A_BUTTON)) {
     if (ballx == player.x + PLAYER_WIDTH + 30) {
       ballx += 0;
@@ -251,5 +209,3 @@ void resetGame() {
   mapx = 0;
   mapy = 0;
 }
-
-
