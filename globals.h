@@ -1,12 +1,14 @@
 #ifndef GLOBALS_H
 #define GLOBALS_H
 
+#include "images.h"
+
 int oppScore {0};
 
 #define OPP_WIDTH    10
 #define OPP_HEIGHT  16
 #define OPP_X_OFFSET   WIDTH - OPP_WIDTH
-#define OPP_Y_OFFSET   64 - 32
+#define OPP_Y_OFFSET   HEIGHT / 2 - OPP_HEIGHT / 2
 #define OPP_SPEED  1
 
 enum OppStance {
@@ -39,7 +41,7 @@ Opponent opp = {OPP_X_OFFSET, OPP_Y_OFFSET, OppStance::oppStanding, 0, false, op
 #define BALL_RADIUS    4
 #define BALL_SIZE    8
 
-int ballx{PLAYER_X_OFFSET + PLAYER_WIDTH - 2};
+int ballx{OPP_X_OFFSET - OPP_WIDTH - 2};
 int bally{PLAYER_Y_OFFSET + PLAYER_HEIGHT / 2};
 
 int playerScore {0};
