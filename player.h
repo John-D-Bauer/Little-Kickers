@@ -13,7 +13,7 @@ void drawball() {
 }
 
 void contact () {
-  Rect ballRect = { ballx, bally, BALL_SIZE, BALL_SIZE };
+Rect ballRect = { ballx, bally, BALL_SIZE, BALL_SIZE};
 Rect playerRect = {player.x, player.y, PLAYER_WIDTH, PLAYER_HEIGHT};
   
   if (arduboy.collide(ballRect, playerRect))  {
