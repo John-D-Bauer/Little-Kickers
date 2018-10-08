@@ -193,10 +193,14 @@ void scoreGoal() {
   
   if (ballx + BALL_SIZE >= mapx + TILE_SIZE * WORLD_WIDTH) {
     playerScore += 1; 
-    ballx = PLAYER_X_OFFSET + PLAYER_WIDTH - 2;
+    ballx = OPP_X_OFFSET - OPP_WIDTH - 2;
     bally = PLAYER_Y_OFFSET + PLAYER_HEIGHT / 2;
     mapx = 0;
     mapy = 0;
+    opp.hasBall = true;
+    player.hasBall = false;
+    opp.x = WIDTH - OPP_WIDTH;
+    opp.y = HEIGHT / 2 - OPP_HEIGHT / 2;
   }
 }
 
