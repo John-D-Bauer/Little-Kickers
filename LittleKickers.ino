@@ -50,8 +50,9 @@ oppGoal();
 }
 
 void gameover() {
-  arduboy.setCursor(0, 0);
-  arduboy.print("Game Over Screen\n");
+  arduboy.drawBitmap(54, 28, losescreen, 64, 16, WHITE);
+  arduboy.setCursor(54, 38);
+  arduboy.print("Press A to try again\n");
   if(arduboy.justPressed(A_BUTTON)) {
     gamestate = GAME_HIGH;
   }
@@ -60,8 +61,8 @@ void gameover() {
 void highscore() {
    arduboy.drawBitmap(0, 0, winscreen, 64, 64, WHITE);
   
-  arduboy.setCursor(68, 28);
-  arduboy.print("You won!\n      Press A to \n      Start again");
+  arduboy.setCursor(56, 28);
+  arduboy.print("You won!\n         Press A to \n         start again");
 
   if (gamestate == GAME_HIGH) {
     resetGame();
