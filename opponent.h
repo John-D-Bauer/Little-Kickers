@@ -90,7 +90,7 @@ void oppGoal()
 	}
 	
 	if (opp.hasBall) {
-	  if (opp.x != mapx) {
+	  if (ballx != mapx) {
 	    /* Every 30 frames change the stance - this affects how
      quickly the opponent "reacts" to the player movement.
      Experiment with different values than 30. Lower values
