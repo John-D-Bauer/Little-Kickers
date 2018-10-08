@@ -1,181 +1,117 @@
-#pragma once
-#include "images.h"
+#include <Arduboy2.h>
+Arduboy2 arduboy;
+
+#include "maps.h"
+#include "player.h"
+#include "opponent.h"
 #include "globals.h"
 
-Sprites sprites;
+#define GAME_INTRO  0
+#define GAME_TITLE  1
+#define GAME_PLAY 2
+#define GAME_OVER 3
+#define GAME_HIGH 4
+int gamestate = GAME_TITLE;
 
-void drawopponent() {
-int frame = opp.stance == OppStance::oppStanding ? 0 : (opp.stance * 2 - 1 + opp.animationFrame);
-sprites.drawOverwrite(opp.x,opp.y,opponentImages,frame);
-}
-
-
-void oppAttack() {
-  /* Every 30 frames change the stance - this affects how
-     quickly the opponent "reacts" to the player movement.
-     Experiment with different values than 30. Lower values
-     will make the game more difficult (the oponent will
-     have faster reaction time). */
-
-  if (arduboy.everyXFrames(30)) {
-    if(opp.x < ballx)
-{
-	opp.stance = OppStance::oppRunningR;
-}
-else if(opp.x > (ballx + BALL_SIZE))
-{
-	opp.stance = OppStance::oppRunningL;
-}
-       if(opp.y < bally)
-{
-	opp.stance = OppStance::oppRunningF;
-}
-else if(opp.y > (bally + BALL_SIZE))
-{
-	opp.stance = OppStance::oppRunningB;
-}
+void titlescreen() {
+  arduboy.drawBitmap(0, 0, titleScreen, 128, 64, WHITE);
+  arduboy.setCursor(50, 28);
+  arduboy.print("Press\n");
+   arduboy.setCursor(50, 38);
+  arduboy.print(" A\n");
+  if(arduboy.justPressed(A_BUTTON)) {
+    gamestate = GAME_PLAY;
   }
-
-  /* Every 5 frames we change the animation frame - this
-     will only affect the animation, so choose a value that
-     just looks nice. */
-  if (arduboy.everyXFrames(5)) {
-    opp.animationFrame = (opp.animationFrame + 1) % 2;
-  }
-  /* Every 7 frames we actually move the opponent in direction
-     in which he is facing. */
-  if (!opp.hasBall && arduboy.everyXFrames(7)) {
-    switch (opp.stance)
-    {
-     case OppStance::oppRunningR:
-	if(opp.x < ballx)
-	{
-		opp.x += OPP_SPEED;
-	}
-	break;
-
-case OppStance::oppRunningL:
-	if(opp.x > (ballx + BALL_SIZE))
-	{
-		opp.x -= OPP_SPEED;
-	}
-	break;
-
-      case OppStance::oppRunningF:
-        if(opp.y < bally)
-	{
-		opp.y += OPP_SPEED;
-	}
-        break;
-
-      case OppStance::oppRunningB:
-        if(opp.y > (bally + BALL_SIZE))
-	{
-		opp.y -= OPP_SPEED;
-	}
-        break;
-    }
-  }
-} 
-
-void oppGoal()
-{
-	Rect ballRect = { ballx, bally, BALL_SIZE + 1, BALL_SIZE + 1 };
-	Rect oppRect = { opp.x, opp.y, OPP_WIDTH, OPP_HEIGHT };
-
-	if (arduboy.collide(oppRect, ballRect))
-	{
-		opp.hasBall = true;
-		player.hasBall = false;
-	}
-	
-	if (opp.hasBall) {
-	  if (ballx != mapx) {
-	    /* Every 30 frames change the stance - this affects how
-     quickly the opponent "reacts" to the player movement.
-     Experiment with different values than 30. Lower values
-     will make the game more difficult (the oponent will
-     have faster reaction time). */
-
-  if (arduboy.everyXFrames(30)) {
-    if(opp.x < mapx)
-{
-	opp.stance = OppStance::oppRunningR;
 }
-else if(opp.x > (mapx + TILE_SIZE * WORLD_WIDTH))
-{
-	opp.stance = OppStance::oppRunningL;
-}
-       if(opp.y < mapy)
-{
-	opp.stance = OppStance::oppRunningF;
-}
-else if(opp.y > (mapy + TILE_SIZE * WORLD_HEIGHT))
-{
-	opp.stance = OppStance::oppRunningB;
-}
-  }
 
-  /* Every 5 frames we change the animation frame - this
-     will only affect the animation, so choose a value that
-     just looks nice. */
-  if (arduboy.everyXFrames(5)) {
-    opp.animationFrame = (opp.animationFrame + 1) % 2;
-  }
-  /* Every 7 frames we actually move the opponent in direction
-     in which he is facing. */
-  if (arduboy.everyXFrames(7)) {
-    switch (opp.stance)
-    {
-     case OppStance::oppRunningR:
-	if(opp.x < mapx + TILE_SIZE * WORLD_WIDTH)
-	{
-		opp.x += OPP_SPEED;
-	}
-	break;
-
-case OppStance::oppRunningL:
-	if(opp.x > mapx)
-	{
-		opp.x -= OPP_SPEED;
-	}
-	break;
-
-      case OppStance::oppRunningF:
-        if(opp.y < mapy)
-	{
-		opp.y += OPP_SPEED;
-	}
-        break;
-
-      case OppStance::oppRunningB:
-        if(opp.y > (mapy + TILE_SIZE * WORLD_HEIGHT))
-	{
-		opp.y -= OPP_SPEED;
-	}
-        break;
-    }
-  }
+void gameplay() {
   
-  if (arduboy.everyXFrames(7)) {
-	    ballx -= 1;
-	    }
-	  }
-	}
-	else {
-	    ballx += 0;
-	    opp.x += 0;
-	}
-	
-	if(ballx == mapx)
-	{
-		oppScore += 1;
-	  ballx = PLAYER_X_OFFSET + PLAYER_WIDTH - 2;
-    bally = PLAYER_Y_OFFSET + PLAYER_HEIGHT / 2;
-    mapx = 0;
-    mapy = 0;
-    opp.hasBall = false;
-    opp.x = WIDTH - OPP_WIDTH;
-    opp.y = HEIGHT / 2 - OPP_HEIGHT / 2;
-	}
+ contact(); 
+ playerinput();
+ drawworld();
+ drawball(); 
+ drawplayer();
+ scoreGoal();
+ drawopponent();
+ if (!opp.hasBall) {
+  oppAttack();
+}
+oppGoal();
+
+  if (playerScore == 5) {
+    gamestate = GAME_HIGH;
+  }
+
+  if (oppScore == 5) {
+    gamestate = GAME_OVER;
+  }
+}
+
+void gameover() {
+  arduboy.drawBitmap(35, 28, losescreen, 64, 16, WHITE);
+  arduboy.setCursor(0, 46);
+  arduboy.print(" Press A to try again\n");
+  if(arduboy.justPressed(A_BUTTON)) {
+    gamestate = GAME_HIGH;
+  }
+}
+
+void highscore() {
+   arduboy.drawBitmap(0, 0, winscreen, 64, 64, WHITE);
+  
+  arduboy.setCursor(56, 28);
+  arduboy.print("You won!\n         Press A to \n         start again");
+
+  if (gamestate == GAME_HIGH) {
+    resetGame();
+  }
+  if(arduboy.justPressed(A_BUTTON)) {
+    gamestate = GAME_TITLE;
+  }
+}
+
+void gameloop() {
+  switch(gamestate) {
+    case GAME_TITLE:
+      titlescreen();
+      break;
+
+    case GAME_PLAY:
+      gameplay();
+      break;
+
+    case GAME_OVER:
+      gameover();
+      break;
+
+    case GAME_HIGH:
+      highscore();
+      break;
+  }
+}
+
+
+
+void setup() {
+  arduboy.begin();
+  arduboy.setFrameRate(45);
+  arduboy.display();
+
+  arduboy.initRandomSeed();
+  
+  arduboy.clear();
+}
+
+void loop() {
+  if(!(arduboy.nextFrame())) {
+    return;
+  }
+
+  arduboy.pollButtons();
+
+  arduboy.clear();
+
+  gameloop();
+
+  arduboy.display();
 }
