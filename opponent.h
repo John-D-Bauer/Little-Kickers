@@ -86,6 +86,7 @@ void oppGoal()
 	if (arduboy.collide(oppRect, ballRect))
 	{
 		opp.hasBall = true;
+		player.hasBall = false;
 	}
 	
 	if (opp.hasBall) {
@@ -123,18 +124,18 @@ else if(opp.y > (mapy + TILE_SIZE * WORLD_HEIGHT))
   }
   /* Every 7 frames we actually move the opponent in direction
      in which he is facing. */
-  if (!opp.hasBall && arduboy.everyXFrames(7)) {
+  if (arduboy.everyXFrames(7)) {
     switch (opp.stance)
     {
      case OppStance::oppRunningR:
-	if(opp.x < mapx)
+	if(opp.x < mapx + TILE_SIZE * WORLD_WIDTH)
 	{
 		opp.x += OPP_SPEED;
 	}
 	break;
 
 case OppStance::oppRunningL:
-	if(opp.x > (mapx + TILE_SIZE * WORLD_WIDTH))
+	if(opp.x > mapx)
 	{
 		opp.x -= OPP_SPEED;
 	}
@@ -155,12 +156,17 @@ case OppStance::oppRunningL:
         break;
     }
   }
+  
   if (arduboy.everyXFrames(7)) {
 	    ballx -= 1;
 	    }
 	  }
 	}
-
+	else {
+	    ballx += 0;
+	    opp.x += 0;
+	}
+	
 	if(ballx == mapx)
 	{
 		oppScore += 1;
