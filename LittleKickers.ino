@@ -25,9 +25,7 @@ void titlescreen() {
 }
 
 void gameplay() {
-  arduboy.setCursor(0, 0);
-  arduboy.print("Gameplay\n");
-
+  
  contact(); 
  playerinput();
  drawworld();
@@ -45,14 +43,14 @@ oppGoal();
   }
 
   if (oppScore == 5) {
-    gamestate == GAME_OVER;
+    gamestate = GAME_OVER;
   }
 }
 
 void gameover() {
-  arduboy.drawBitmap(54, 28, losescreen, 64, 16, WHITE);
-  arduboy.setCursor(54, 38);
-  arduboy.print("Press A to try again\n");
+  arduboy.drawBitmap(35, 28, losescreen, 64, 16, WHITE);
+  arduboy.setCursor(0, 46);
+  arduboy.print(" Press A to try again\n");
   if(arduboy.justPressed(A_BUTTON)) {
     gamestate = GAME_HIGH;
   }
