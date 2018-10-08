@@ -66,6 +66,6 @@ struct Player {
   char image;
 };
 
-Player player = {PLAYER_X_OFFSET, PLAYER_Y_OFFSET, Stance::Standing, true, playerImages};
+Player player = {PLAYER_X_OFFSET, PLAYER_Y_OFFSET, Stance::Standing, false, playerImages};
 
 #endif
