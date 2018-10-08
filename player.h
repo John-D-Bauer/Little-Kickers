@@ -18,9 +18,7 @@ Rect playerRect = {player.x, player.y, PLAYER_WIDTH, PLAYER_HEIGHT};
   
   if (arduboy.collide(ballRect, playerRect))  {
     player.hasBall = true;
-  }
-  else {
-    player.hasBall = false;
+    opp.hasBall = false;
   }
 }
 
