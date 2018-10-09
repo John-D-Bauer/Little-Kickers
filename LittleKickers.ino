@@ -19,6 +19,9 @@ void titlescreen() {
   arduboy.print("Press\n");
    arduboy.setCursor(50, 38);
   arduboy.print(" A\n");
+  
+  resetGame();
+  
   if(arduboy.justPressed(A_BUTTON)) {
     gamestate = GAME_PLAY;
   }
@@ -52,7 +55,7 @@ void gameover() {
   arduboy.setCursor(0, 46);
   arduboy.print(" Press A to try again\n");
   if(arduboy.justPressed(A_BUTTON)) {
-    gamestate = GAME_HIGH;
+    gamestate = GAME_TITLE;
   }
 }
 
