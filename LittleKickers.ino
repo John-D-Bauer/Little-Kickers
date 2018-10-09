@@ -51,8 +51,12 @@ oppGoal();
 }
 
 void gameover() {
-  arduboy.drawBitmap(35, 28, losescreen, 64, 16, WHITE);
+  
+  arduboy.setCursor(10, 20);
+  arduboy.setTextSize(2);
+  arduboy.print ("You Lost");
   arduboy.setCursor(0, 46);
+  arduboy.setTextSize(1);
   arduboy.print(" Press A to try again\n");
   if(arduboy.justPressed(A_BUTTON)) {
     gamestate = GAME_TITLE;
