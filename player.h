@@ -59,6 +59,11 @@ void playerinput() {
     break;
   }
   }
+  
+  if (!player.hasBall && opp.y < player.y && arduboy.everyXFrames(7)) {
+    opp.y += 1;
+  }
+  
    if (arduboy.notPressed(UP_BUTTON) && ( player.stance == Stance::RunningB1 || player.stance == Stance::RunningB2 ) ) {
     player.stance = Stance::Standing; 
     }
@@ -96,6 +101,11 @@ void playerinput() {
     break;
   }
   }
+  
+  if (!player.hasBall && opp.y > player.y && arduboy.everyXFrames(7)) {
+    opp.y -= 1;
+  } 
+  
    if (arduboy.notPressed(DOWN_BUTTON) && ( player.stance == Stance::RunningF1 || player.stance == Stance::RunningF2 ) ) {
     player.stance = Stance::Standing; 
     }
@@ -132,6 +142,11 @@ void playerinput() {
     break;
   }
   }
+  
+  if (!player.hasBall && opp.x < player.x && arduboy.everyXFrames(7)) {
+    opp.x += 1;
+  }
+  
    if (arduboy.notPressed(LEFT_BUTTON) && ( player.stance == Stance::RunningL1 || player.stance == Stance::RunningL2 ) ) {
     player.stance = Stance::Standing; 
     }
@@ -168,6 +183,11 @@ void playerinput() {
     break;
   }
   }
+  
+  if (!player.hasBall && opp.x > player.x && arduboy.everyXFrames(7)) {
+    opp.x -= 1;
+  }
+  
    if (arduboy.notPressed(RIGHT_BUTTON) && ( player.stance == Stance::RunningR1 || player.stance == Stance::RunningR2 ) ) {
     player.stance = Stance::Standing; 
     }
@@ -208,6 +228,7 @@ void resetGame() {
   ballx = PLAYER_X_OFFSET + PLAYER_WIDTH - 2;
   bally = PLAYER_Y_OFFSET + PLAYER_HEIGHT / 2;
   playerScore = 0;
+  oppScore = 0;
   mapx = 0;
   mapy = 0;
 }
