@@ -60,7 +60,7 @@ void playerinput() {
   }
   }
   
-  if (!player.hasBall && opp.y < player.y && arduboy.everyXFrames(7)) {
+  if (opp.y < player.y && arduboy.everyXFrames(7)) {
     opp.y += 1;
   }
   
@@ -102,7 +102,7 @@ void playerinput() {
   }
   }
   
-  if (!player.hasBall && opp.y > player.y && arduboy.everyXFrames(7)) {
+  if (opp.y > player.y && arduboy.everyXFrames(7)) {
     opp.y -= 1;
   } 
   
@@ -143,7 +143,7 @@ void playerinput() {
   }
   }
   
-  if (!player.hasBall && opp.x < player.x && arduboy.everyXFrames(7)) {
+  if (opp.x < player.x && arduboy.everyXFrames(7)) {
     opp.x += 1;
   }
   
@@ -184,7 +184,7 @@ void playerinput() {
   }
   }
   
-  if (!player.hasBall && opp.x > player.x && arduboy.everyXFrames(7)) {
+  if (opp.x > player.x && arduboy.everyXFrames(7)) {
     opp.x -= 1;
   }
   
@@ -202,14 +202,6 @@ if (arduboy.justPressed(B_BUTTON) && (arduboy.pressed(DOWN_BUTTON))) {
 }
 
 void scoreGoal() { 
-  if (arduboy.justPressed(A_BUTTON)) {
-    if (ballx == player.x + PLAYER_WIDTH + 30) {
-      ballx += 0;
-    }
-    else {
-      ballx += 1;
-    }
-  }
   
   if (ballx + BALL_SIZE >= mapx + TILE_SIZE * WORLD_WIDTH) {
     playerScore += 1; 
