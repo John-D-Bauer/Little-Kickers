@@ -62,17 +62,15 @@ case OppStance::oppRunningL:
 	break;
 
       case OppStance::oppRunningF:
-        if(opp.y < bally)
-	{
-		opp.y += OPP_SPEED;
-	}
+      if(opp.y + OPP_HEIGHT < mapy + TILE_SIZE * WORLD_HEIGHT) {
+      opp.y += 1;
+    }
         break;
 
       case OppStance::oppRunningB:
-        if(opp.y > (bally + BALL_SIZE))
-	{
-		opp.y -= OPP_SPEED;
-	}
+       if(mapy < opp.y + 12) {
+      opp.y -= 1;
+    }
         break;
     }
   }
@@ -90,6 +88,7 @@ void oppGoal()
 	}
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////
 	
 	if (opp.hasBall) {
 	  if (ballx != mapx) {
@@ -100,11 +99,7 @@ void oppGoal()
      have faster reaction time). */
 
   if (arduboy.everyXFrames(30)) {
-    if(opp.x < mapx)
-{
-	opp.stance = OppStance::oppRunningR;
-}
-else if(opp.x > (mapx + TILE_SIZE * WORLD_WIDTH))
+if(opp.x > (mapx + TILE_SIZE * WORLD_WIDTH))
 {
 	opp.stance = OppStance::oppRunningL;
 }
@@ -129,39 +124,28 @@ else if(opp.y > (mapy + TILE_SIZE * WORLD_HEIGHT))
   if (arduboy.everyXFrames(7)) {
     switch (opp.stance)
     {
-     case OppStance::oppRunningR:
-	if(opp.x <= mapx + TILE_SIZE * WORLD_WIDTH)
-	{
-		opp.x += OPP_SPEED;
-	}
-	ballx = opp.x + OPP_WIDTH;
-	bally = opp.y + (OPP_HEIGHT / 2);
-	break;
 
 case OppStance::oppRunningL:
-	if(opp.x >= mapx)
-	{
-		opp.x -= OPP_SPEED;
-	}
+	if(mapx < opp.x) {
+      opp.x -= 1;
+    }
 	ballx = opp.x - BALL_SIZE;
 	bally = opp.y + (OPP_HEIGHT / 2);
 	break;
 
       case OppStance::oppRunningF:
-        if(opp.y >= mapy)
-	{
-		opp.y += OPP_SPEED;
-	}
+     if(opp.y + OPP_HEIGHT < mapy + TILE_SIZE * WORLD_HEIGHT) {
+      opp.y += 1;
+    }
         break;
 
       case OppStance::oppRunningB:
-        if(opp.y <= (mapy + TILE_SIZE * WORLD_HEIGHT))
+        if(opp.y <= mapy + TILE_SIZE * WORLD_HEIGHT)
 	{
 		opp.y -= OPP_SPEED;
 	}
         break;
     }
-  }
   
   if (arduboy.everyXFrames(7)) {
 	    ballx -= 1;
@@ -184,4 +168,5 @@ case OppStance::oppRunningL:
     opp.x = WIDTH - OPP_WIDTH;
     opp.y = HEIGHT / 2 - OPP_HEIGHT / 2;
 	}
+}
 }
