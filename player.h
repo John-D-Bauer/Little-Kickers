@@ -38,7 +38,7 @@ void playerinput() {
       ballx = PLAYER_X_OFFSET + 6;
       bally = PLAYER_Y_OFFSET + 6;
     }
-      if (arduboy.everyXFrames(7)) {  
+     if ((player.hasBall && arduboy.everyXFrames(8)) || (!player.hasBall && arduboy.everyXFrames(7))) {
   switch(player.stance) {
     case Stance::Standing:
     case Stance::RunningR1:
@@ -80,7 +80,7 @@ void playerinput() {
       bally = PLAYER_Y_OFFSET + PLAYER_HEIGHT;
     }
     
-     if (arduboy.everyXFrames(7)) {  
+    if ((player.hasBall && arduboy.everyXFrames(8)) || (!player.hasBall && arduboy.everyXFrames(7))) {
  switch(player.stance) {
     case Stance::Standing:
     case Stance::RunningB1:
@@ -121,7 +121,7 @@ void playerinput() {
       bally = PLAYER_Y_OFFSET + PLAYER_HEIGHT / 2;
     }
     
-   if (arduboy.everyXFrames(7)) {  
+  if ((player.hasBall && arduboy.everyXFrames(8)) || (!player.hasBall && arduboy.everyXFrames(7))) {
   switch(player.stance) {
     case Stance::Standing:
     case Stance::RunningR1:
@@ -162,7 +162,7 @@ void playerinput() {
       bally = PLAYER_Y_OFFSET + PLAYER_HEIGHT / 2;
     }
     
-  if (arduboy.everyXFrames(7)) {  
+  if ((player.hasBall && arduboy.everyXFrames(8)) || (!player.hasBall && arduboy.everyXFrames(7))) {
   switch(player.stance) {
     case Stance::Standing:
     case Stance::RunningL1:
