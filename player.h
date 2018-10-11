@@ -184,7 +184,7 @@ void playerinput() {
   }
   }
   
-  if (opp.x > player.x && arduboy.everyXFrames(7)) {
+ if (opp.x > player.x && arduboy.everyXFrames(7)) {
     opp.x -= 1;
   }
   
@@ -192,13 +192,6 @@ void playerinput() {
     player.stance = Stance::Standing; 
     }
   }
-
-if (arduboy.justPressed(B_BUTTON) && (arduboy.pressed(DOWN_BUTTON))) {
-  player.stance = Stance::Standing;
-
-  player.y += 5;
-  
-}
 }
 
 void scoreGoal() { 
