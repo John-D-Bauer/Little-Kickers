@@ -14,11 +14,13 @@ Arduboy2 arduboy;
 int gamestate = GAME_TITLE;
 
 void titlescreen() {
-  arduboy.drawBitmap(0, 0, titleScreen, 128, 64, WHITE);
-  arduboy.setCursor(50, 28);
-  arduboy.print("Press\n");
-   arduboy.setCursor(50, 38);
-  arduboy.print(" A\n");
+
+  arduboy.setCursor(0, 0);
+  arduboy.setTextSize(2);
+  arduboy.print("Little\nKickers");
+  arduboy.setCursor(0, 38);
+  arduboy.setTextSize(1);
+  arduboy.print("Press A to start\n");
   
   resetGame();
   
