@@ -26,7 +26,7 @@ else if(opp.x > (ballx + BALL_SIZE))
 {
 	opp.stance = OppStance::oppRunningL;
 }
-       if(opp.y < bally)
+       if(opp.y + OPP_HEIGHT <= bally)
 {
 	opp.stance = OppStance::oppRunningF;
 }
@@ -129,8 +129,10 @@ case OppStance::oppRunningL:
 	if(mapx < opp.x) {
       opp.x -= 1;
     }
+  
 	ballx = opp.x - BALL_SIZE;
 	bally = opp.y + (OPP_HEIGHT / 2);
+  
 	break;
 
       case OppStance::oppRunningF:
