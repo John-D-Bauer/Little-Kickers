@@ -1,6 +1,4 @@
-/* Things needing to be worked on:
- 1. Dribbling, shooting, slide tackling, etc.  
- */
+
 
 #pragma once
 #include "images.h"
@@ -38,7 +36,7 @@ void playerinput() {
       ballx = PLAYER_X_OFFSET + 6;
       bally = PLAYER_Y_OFFSET + 6;
     }
-     if ((player.hasBall && arduboy.everyXFrames(8)) || (!player.hasBall && arduboy.everyXFrames(7))) {
+     if ((player.hasBall && arduboy.everyXFrames(7)) || (!player.hasBall && arduboy.everyXFrames(7))) {
   switch(player.stance) {
     case Stance::Standing:
     case Stance::RunningR1:
@@ -60,7 +58,7 @@ void playerinput() {
   }
   }
   
-  if (opp.y < player.y && arduboy.everyXFrames(7)) {
+  if (opp.y < player.y && arduboy.everyXFrames(4)) {
     opp.y += 1;
   }
   
@@ -80,7 +78,7 @@ void playerinput() {
       bally = PLAYER_Y_OFFSET + PLAYER_HEIGHT;
     }
     
-    if ((player.hasBall && arduboy.everyXFrames(8)) || (!player.hasBall && arduboy.everyXFrames(7))) {
+    if ((player.hasBall && arduboy.everyXFrames(7)) || (!player.hasBall && arduboy.everyXFrames(7))) {
  switch(player.stance) {
     case Stance::Standing:
     case Stance::RunningB1:
@@ -102,7 +100,7 @@ void playerinput() {
   }
   }
   
-  if (opp.y > player.y && arduboy.everyXFrames(7)) {
+  if (opp.y > player.y && arduboy.everyXFrames(4)) {
     opp.y -= 1;
   } 
   
@@ -121,7 +119,7 @@ void playerinput() {
       bally = PLAYER_Y_OFFSET + PLAYER_HEIGHT / 2;
     }
     
-  if ((player.hasBall && arduboy.everyXFrames(8)) || (!player.hasBall && arduboy.everyXFrames(7))) {
+  if ((player.hasBall && arduboy.everyXFrames(7)) || (!player.hasBall && arduboy.everyXFrames(7))) {
   switch(player.stance) {
     case Stance::Standing:
     case Stance::RunningR1:
@@ -142,8 +140,7 @@ void playerinput() {
     break;
   }
   }
-  
-  if (opp.x < player.x && arduboy.everyXFrames(7)) {
+  if (opp.x < player.x && arduboy.everyXFrames(4)) {
     opp.x += 1;
   }
   
@@ -162,7 +159,7 @@ void playerinput() {
       bally = PLAYER_Y_OFFSET + PLAYER_HEIGHT / 2;
     }
     
-  if ((player.hasBall && arduboy.everyXFrames(8)) || (!player.hasBall && arduboy.everyXFrames(7))) {
+  if ((player.hasBall && arduboy.everyXFrames(7)) || (!player.hasBall && arduboy.everyXFrames(7))) {
   switch(player.stance) {
     case Stance::Standing:
     case Stance::RunningL1:
@@ -184,15 +181,27 @@ void playerinput() {
   }
   }
   
- if (opp.x > player.x && arduboy.everyXFrames(7)) {
+  if (opp.x > player.x && arduboy.everyXFrames(4)) {
     opp.x -= 1;
   }
   
-   if (arduboy.notPressed(RIGHT_BUTTON) && ( player.stance == Stance::RunningR1 || player.stance == Stance::RunningR2 ) ) {
-    player.stance = Stance::Standing; 
-    }
   }
 }
+  //////////////////////////////////////////////////////////////////////////////
+  //////////////////Tackle function////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////////
+void tackle() {
+Rect playerRect = {player.x, player.y, PLAYER_WIDTH, PLAYER_HEIGHT};
+Rect oppRect = { opp.x, opp.y, OPP_WIDTH, OPP_HEIGHT };
+
+   if (arduboy.collide(oppRect, playerRect)) {
+    if (arduboy.justPressed(A_BUTTON)) {
+      player.hasBall = true;
+      ballx = PLAYER_X_OFFSET + PLAYER_WIDTH;
+    }
+  }
+} 
 
 void scoreGoal() { 
   

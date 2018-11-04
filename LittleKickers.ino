@@ -33,6 +33,7 @@ void gameplay() {
   
  contact(); 
  playerinput();
+ tackle();
  drawworld();
  drawball(); 
  drawplayer();
