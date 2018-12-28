@@ -21,7 +21,6 @@ Rect playerRect = {player.x, player.y, PLAYER_WIDTH, PLAYER_HEIGHT};
 }
 
 void drawplayer() {
-player.image = playerImages[player.stance];
 arduboy.fillRect(player.x, player.y, PLAYER_WIDTH, PLAYER_HEIGHT, BLACK);  
 Sprites::drawExternalMask(player.x, player.y, playerImages, playerImages, player.stance, player.stance);
 }
