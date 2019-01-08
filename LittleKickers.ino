@@ -11,7 +11,7 @@ Arduboy2 arduboy;
 #define GAME_PLAY 2
 #define GAME_OVER 3
 #define GAME_HIGH 4
-int gamestate = GAME_TITLE;
+int gameState = GAME_TITLE;
 
 void titlescreen() 
 {
@@ -27,7 +27,7 @@ void titlescreen()
   
   if(arduboy.justPressed(A_BUTTON)) 
   {
-    gamestate = GAME_PLAY;
+    gameState = GAME_PLAY;
   }
 }
 
@@ -49,12 +49,12 @@ oppGoal();
 
   if (playerScore == 5) 
   {
-    gamestate = GAME_HIGH;
+    gameState = GAME_HIGH;
   }
 
   if (oppScore == 5) 
   {
-    gamestate = GAME_OVER;
+    gameState = GAME_OVER;
   }
 }
 
@@ -69,7 +69,7 @@ void gameover()
   arduboy.print(" Press A to try again\n");
   if(arduboy.justPressed(A_BUTTON)) 
   {
-    gamestate = GAME_TITLE;
+    gameState = GAME_TITLE;
   }
 }
 
@@ -85,13 +85,13 @@ void highscore()
   }
   if(arduboy.justPressed(A_BUTTON)) 
   {
-    gamestate = GAME_TITLE;
+    gameState = GAME_TITLE;
   }
 }
 
 void gameloop() 
 {
-  switch(gamestate) 
+  switch(gameState) 
   {
     case GAME_TITLE:
       titlescreen();
