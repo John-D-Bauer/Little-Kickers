@@ -13,7 +13,8 @@ Arduboy2 arduboy;
 #define GAME_HIGH 4
 int gamestate = GAME_TITLE;
 
-void titlescreen() {
+void titlescreen() 
+{
 
   arduboy.setCursor(0, 0);
   arduboy.setTextSize(2);
@@ -24,12 +25,14 @@ void titlescreen() {
   
   resetGame();
   
-  if(arduboy.justPressed(A_BUTTON)) {
+  if(arduboy.justPressed(A_BUTTON)) 
+  {
     gamestate = GAME_PLAY;
   }
 }
 
-void gameplay() {
+void gameplay() 
+{
   
  contact(); 
  playerinput();
@@ -44,16 +47,19 @@ void gameplay() {
 }
 oppGoal();
 
-  if (playerScore == 5) {
+  if (playerScore == 5) 
+  {
     gamestate = GAME_HIGH;
   }
 
-  if (oppScore == 5) {
+  if (oppScore == 5) 
+  {
     gamestate = GAME_OVER;
   }
 }
 
-void gameover() {
+void gameover() 
+{
   
   arduboy.setCursor(10, 20);
   arduboy.setTextSize(2);
@@ -61,12 +67,14 @@ void gameover() {
   arduboy.setCursor(0, 46);
   arduboy.setTextSize(1);
   arduboy.print(" Press A to try again\n");
-  if(arduboy.justPressed(A_BUTTON)) {
+  if(arduboy.justPressed(A_BUTTON)) 
+  {
     gamestate = GAME_TITLE;
   }
 }
 
-void highscore() {
+void highscore() 
+{
    arduboy.drawBitmap(0, 0, winscreen, 64, 64, WHITE);
   
   arduboy.setCursor(56, 28);
@@ -75,13 +83,16 @@ void highscore() {
   if (gamestate == GAME_HIGH) {
     resetGame();
   }
-  if(arduboy.justPressed(A_BUTTON)) {
+  if(arduboy.justPressed(A_BUTTON)) 
+  {
     gamestate = GAME_TITLE;
   }
 }
 
-void gameloop() {
-  switch(gamestate) {
+void gameloop() 
+{
+  switch(gamestate) 
+  {
     case GAME_TITLE:
       titlescreen();
       break;
@@ -102,7 +113,8 @@ void gameloop() {
 
 
 
-void setup() {
+void setup() 
+{
   arduboy.begin();
   arduboy.setFrameRate(45);
   arduboy.display();
@@ -112,8 +124,10 @@ void setup() {
   arduboy.clear();
 }
 
-void loop() {
-  if(!(arduboy.nextFrame())) {
+void loop() 
+{
+  if(!(arduboy.nextFrame())) 
+  {
     return;
   }
 
