@@ -11,7 +11,8 @@ int oppScore {0};
 #define OPP_Y_OFFSET   HEIGHT / 2 - OPP_HEIGHT / 2
 #define OPP_SPEED  1
 
-enum OppStance {
+enum OppStance 
+{
   oppStanding,
   oppRunningR,
   oppRunningL,
@@ -19,11 +20,13 @@ enum OppStance {
   oppRunningB,
 };
 
-struct oppVector {
+struct oppVector 
+{
   int x, y;
 };
 
-struct Opponent {
+struct Opponent 
+{
   int x;
   int y;
   OppStance stance;
@@ -46,7 +49,8 @@ int bally{PLAYER_Y_OFFSET + PLAYER_HEIGHT / 2};
 
 int playerScore {0};
 
-enum Stance {
+enum Stance 
+{
   Standing,
   RunningR1,
   RunningR2,
@@ -58,7 +62,8 @@ enum Stance {
   RunningB2,
 };
 
-struct Player {
+struct Player 
+{
   int x;
   int y;
   Stance stance;
