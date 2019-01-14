@@ -40,7 +40,7 @@ void oppAttack()
 	
 	// Every 7 frames we actually move the opponent in direction
 	// in which he is facing.
-	if ((opp.hasBall && arduboy.everyXFrames(8)) || (!opp.hasBall && arduboy.everyXFrames(8)))
+	if (arduboy.everyXFrames(8))
 	{
 		switch (opp.stance)
 		{
@@ -123,7 +123,7 @@ void oppGoal()
 			
 	// Every 7 frames we actually move the opponent in direction
 	// in which he is facing.
-	if ((opp.hasBall && arduboy.everyXFrames(8)) || (!opp.hasBall && arduboy.everyXFrames(8)))
+	if (arduboy.everyXFrames(8))
 	{
 		switch (opp.stance)
 		{
