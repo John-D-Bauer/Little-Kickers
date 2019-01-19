@@ -13,6 +13,8 @@ Arduboy2 arduboy;
 #define GAME_HIGH 4
 int gameState = GAME_TITLE;
 
+
+//Title screen also including resetGame function
 void titlescreen() 
 {
 
@@ -31,6 +33,7 @@ void titlescreen()
   }
 }
 
+//includes many different functions 
 void gameplay() 
 {
   
@@ -42,10 +45,13 @@ void gameplay()
  drawplayer();
  scoreGoal();
  drawopponent();
- if (!opp.hasBall) {
+
+ //if opponent does not have the ball, the opponent attacks.
+ if (!opp.hasBall) 
   oppAttack();
-}
-oppGoal();
+//if the opponent has the ball, he will try to score.
+if (opp.hasBall)
+  oppGoal();
 
   if (playerScore == 5) 
   {
@@ -75,12 +81,18 @@ void gameover()
 
 void highscore() 
 {
-   arduboy.drawBitmap(0, 0, winscreen, 64, 64, WHITE);
-  
-  arduboy.setCursor(56, 28);
-  arduboy.print("You won!\n         Press A to \n         start again");
+  arduboy.setTextSize(2);
+  arduboy.setCursor(28, 0);
+  arduboy.print("You won!");
 
-  if (gamestate == GAME_HIGH) {
+  arduboy.setTextSize(1);
+  arduboy.setCursor(28,16);
+  arduboy.print("Press A");
+
+  arduboy.setCursor(28, 24);
+  arduboy.print("To start again");
+
+  if (gameState == GAME_HIGH) {
     resetGame();
   }
   if(arduboy.justPressed(A_BUTTON)) 
