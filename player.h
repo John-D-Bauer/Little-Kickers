@@ -43,7 +43,7 @@ void playerinput()
       ballx = PLAYER_X_OFFSET + 6;
       bally = PLAYER_Y_OFFSET + 6;
     }
-     if ((player.hasBall && arduboy.everyXFrames(7)) || (!player.hasBall && arduboy.everyXFrames(7))) 
+     if ((player.hasBall && arduboy.everyXFrames(7)) || (!player.hasBall && arduboy.everyXFrames(8))) 
      {
   switch(player.stance) 
   {
@@ -67,9 +67,10 @@ void playerinput()
   }
   }
   
-  if (opp.y < player.y && arduboy.everyXFrames(4)) 
+  if ((opp.y < player.y || bally < player.y) && arduboy.everyXFrames(4)) 
   {
     opp.y += 1;
+    bally += 1;
   }
   
    if (arduboy.notPressed(UP_BUTTON) && ( player.stance == Stance::RunningB1 || player.stance == Stance::RunningB2 ) ) 
@@ -92,7 +93,7 @@ void playerinput()
       bally = PLAYER_Y_OFFSET + PLAYER_HEIGHT;
     }
     
-    if ((player.hasBall && arduboy.everyXFrames(7)) || (!player.hasBall && arduboy.everyXFrames(7))) 
+    if ((player.hasBall && arduboy.everyXFrames(7)) || (!player.hasBall && arduboy.everyXFrames(8))) 
     {
  switch(player.stance) 
  {
@@ -116,9 +117,10 @@ void playerinput()
   }
   }
   
-  if (opp.y > player.y && arduboy.everyXFrames(4)) 
+  if ((opp.y > player.y || bally > player.y) && arduboy.everyXFrames(4)) 
   {
     opp.y -= 1;
+    bally -= 1;
   } 
   
    if (arduboy.notPressed(DOWN_BUTTON) && ( player.stance == Stance::RunningF1 || player.stance == Stance::RunningF2 ) ) 
@@ -140,7 +142,7 @@ void playerinput()
       bally = PLAYER_Y_OFFSET + PLAYER_HEIGHT / 2;
     }
     
-  if ((player.hasBall && arduboy.everyXFrames(7)) || (!player.hasBall && arduboy.everyXFrames(7))) 
+  if ((player.hasBall && arduboy.everyXFrames(7)) || (!player.hasBall && arduboy.everyXFrames(8))) 
   {
   switch(player.stance) 
   {
@@ -163,9 +165,10 @@ void playerinput()
     break;
   }
   }
-  if (opp.x < player.x && arduboy.everyXFrames(4)) 
+  if ((opp.x < player.x || ballx < player.x) && arduboy.everyXFrames(8)) 
   {
     opp.x += 1;
+    ballx += 1;
   }
   
    if (arduboy.notPressed(LEFT_BUTTON) && ( player.stance == Stance::RunningL1 || player.stance == Stance::RunningL2 ) ) 
@@ -187,7 +190,7 @@ void playerinput()
       bally = PLAYER_Y_OFFSET + PLAYER_HEIGHT / 2;
     }
     
-  if ((player.hasBall && arduboy.everyXFrames(7)) || (!player.hasBall && arduboy.everyXFrames(7))) 
+  if ((player.hasBall && arduboy.everyXFrames(7)) || (!player.hasBall && arduboy.everyXFrames(8))) 
   {
   switch(player.stance) 
   {
@@ -211,9 +214,16 @@ void playerinput()
   }
   }
   
-  if (opp.x > player.x && arduboy.everyXFrames(4)) 
+  if ((opp.x > player.x || ballx > player.x) && arduboy.everyXFrames(4)) 
   {
     opp.x -= 1;
+    ballx -= 1;
+  }
+
+  if ((opp.x < player.x) && (!player.hasBall) && arduboy.everyXFrames(4)) 
+  {
+    opp.x -= 1;
+    ballx -= 1;
   }
   
   }
@@ -232,6 +242,7 @@ Rect oppRect = { opp.x, opp.y, OPP_WIDTH, OPP_HEIGHT };
     if (arduboy.justPressed(A_BUTTON)) 
     {
       player.hasBall = true;
+      opp.hasBall = false;
       ballx = PLAYER_X_OFFSET + PLAYER_WIDTH;
     }
   }
@@ -243,14 +254,23 @@ void scoreGoal()
   if (ballx + BALL_SIZE >= mapx + TILE_SIZE * WORLD_WIDTH) 
   {
     playerScore += 1; 
-    ballx = OPP_X_OFFSET - OPP_WIDTH - 2;
-    bally = PLAYER_Y_OFFSET + PLAYER_HEIGHT / 2;
+    ballx = OPP_X_OFFSET - OPP_WIDTH;
+    bally = OPP_Y_OFFSET - OPP_HEIGHT / 2 + BALL_SIZE;
     mapx = 0;
     mapy = 0;
     opp.hasBall = true;
     player.hasBall = false;
     opp.x = WIDTH - OPP_WIDTH;
     opp.y = HEIGHT / 2 - OPP_HEIGHT / 2;
+
+    if(playerScore == 2 || playerScore == 4) 
+    {
+      opp.x = WIDTH - OPP_WIDTH;
+      opp.y = HEIGHT / 2 + OPP_HEIGHT;
+
+      ballx = opp.x - BALL_SIZE;
+      bally = opp.y + OPP_HEIGHT / 2;
+    }
   }
 }
 
