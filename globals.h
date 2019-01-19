@@ -8,7 +8,8 @@ int oppScore {0};
 #define OPP_WIDTH    10
 #define OPP_HEIGHT  16
 #define OPP_X_OFFSET   WIDTH - OPP_WIDTH
-#define OPP_Y_OFFSET   HEIGHT / 2 - OPP_HEIGHT / 2
+#define OPP_Y_OFFSET   HEIGHT / 2 
+
 #define OPP_SPEED  1
 
 enum OppStance 
@@ -40,7 +41,7 @@ Opponent opp = {OPP_X_OFFSET, OPP_Y_OFFSET, OppStance::oppStanding, 0, false, op
 #define PLAYER_WIDTH    10
 #define PLAYER_HEIGHT  16
 #define PLAYER_X_OFFSET   WIDTH / 2 - PLAYER_WIDTH / 2
-#define PLAYER_Y_OFFSET    HEIGHT / 2 - PLAYER_HEIGHT / 2
+#define PLAYER_Y_OFFSET    HEIGHT / 2
 #define BALL_RADIUS    4
 #define BALL_SIZE    8
 
